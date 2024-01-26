@@ -1,11 +1,12 @@
-import React, { useReducer } from "react";
+import React from "react";
+import { useImmerReducer } from "use-immer";
 import AddTasks from "./AddTasks.jsx";
 import { initialTasks } from "./Data.js";
 import TaskReducer from "./TaskReducer.js";
 import Tasks from "./Tasks.jsx";
 
 export default function TasksList() {
-  const [tasks, dispatch] = useReducer(TaskReducer, initialTasks);
+  const [tasks, dispatch] = useImmerReducer(TaskReducer, initialTasks);
 
   const getNextId = (data) => {
     const nextId = data.reduce((prev, current) =>
@@ -39,7 +40,7 @@ export default function TasksList() {
       <AddTasks onAdd={handleAddTask} />
       {tasks?.map((task) => (
         <Tasks
-          key={task?.id}
+          key={task.id}
           task={task}
           onChangeTask={handleChangeTask}
           onDeleteTask={handleDeleteTask}
